@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<div class="page">
+    <div class="page-main">
+
+    {% include 'dashboard/partials/header.html' %}
+
+    {% include 'dashboard/partials/header_menu.html' %}
+
+      <div class="my-3 my-md-5">
+        <div class="container">
+
+            {% block content %}{% endblock %}
+
+        </div>
+      </div>
+    </div>
+
+    {% include 'dashboard/partials/footer_menu.html' %}
+
+    {% include 'dashboard/partials/footer.html' %}
+
+  </div>
+
+{% endblock %}

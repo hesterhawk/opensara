@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<div class="page">
+        <div class="page-single">
+          <div class="container">
+            <div class="row">
+              <div class="col col-login mx-auto">
+                <div class="text-center mb-6">
+                  <img src="{{ url_for('static', filename='img/logo.png') }}" class="h-6" alt="">&nbsp;&nbsp;&nbsp; OpenSara
+                </div>
+                {% with messages = get_flashed_messages() %}
+                  {% if messages %}
+                    <div class="alert alert-warning">{{ messages[0] }}</div>
+                  {% endif %}
+                {% endwith %}
+                <form class="card" action="{{ url_for('auth.login') }}" method="post">
+                  {{ form.hidden_tag() }}
+                  <div class="card-body p-6">                                      
+                    <div class="form-group">
+                      <label class="form-label">Email address</label>
+                      {{ form.email(size=32, class='form-control', placeholder='email') }}
+                      {% for error in form.email.errors %}<span style="color: red;">[{{ error }}]</span><br><br>{% endfor %}
+                    </div>
+                    <div class="form-group">
+                      <label class="form-label">Password</label>
+                      {{ form.password(size=32, class='form-control', type='password', placeholder='password') }}
+                      {% for error in form.password.errors %}<span style="color: red;">[{{ error }}]</span><br><br>{% endfor %}
+                    </div>
+                    <div class="form-group">
+                      <label class="custom-control custom-checkbox">
+                        {{ form.remember_me(class='custom-control-input') }}
+                        <span class="custom-control-label">Remember me</span>
+                      </label>
+                    </div>
+                    <div class="form-footer">
+                      <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+</div>
+
+{% endblock %}
