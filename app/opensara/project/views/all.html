@@ -1,0 +1,48 @@
+{% extends "dashboard/index.html" %}
+
+{% block content %}
+
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="row">
+        <div class="col-md-12">
+          <div class="alert alert-info" role="alert">
+            {{ messages[0] }}
+          </div>             
+        </div>
+      </div>
+    {% endif %}
+    {% endwith %}
+
+    <div class="row row-cards row-deck align-items-center">
+  
+      <div class="col-md-2">
+        <div class="card-body">
+          <div class="mb-4 text-center">
+            <a href="#"><span class="avatar avatar-xxl avatar-cyan">FA</span></a>
+          </div>
+          <h4 class="card-title text-center">
+            <a href="javascript:void(0)">
+              Falcon Aviator
+            </a>
+          </h4>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <div class="card-body">
+          <div class="mb-4 text-center">
+            <a href="{{ url_for('project.create') }}" title="Add new project"><span class="avatar avatar-xxl avatar-gray">+</span></a>
+          </div>
+          <h4 class="card-title text-center">
+            <a href="javascript:void(0)">
+              &nbsp;
+            </a>
+          </h4>
+        </div>
+      </div>
+
+    </div>
+
+{% endblock %}

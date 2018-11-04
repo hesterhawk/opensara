@@ -13,4 +13,4 @@ class Project(db.Model):
         return '<Project {}>'.format(self.fullname)
     
     def set_random_token(self):
-        self.token = token_hex(28)
+        self.token = token_hex(12)

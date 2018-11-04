@@ -1,0 +1,33 @@
+{% extends "dashboard/index.html" %}
+
+{% block content %}
+
+    <div class="row row-cards row-deck align-items-center">
+  
+      <div class="col-md-8">
+        <form action="{{ url_for('project.create') }}" method="post">
+          {{ form.hidden_tag() }}
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Create new project</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <div class="input-icon mb-3">
+                  {{ form.fullname(size=32, class='form-control is-invalid' if form.fullname.errors else 'form-control', placeholder='Project name..') }}
+                  {% for error in form.fullname.errors %}<div class="invalid-feedback">{{ error }}</div> {% endfor %}                      
+                </div>
+              </div>          
+            </div>
+            <div class="card-footer text-right">
+              <div class="d-flex">
+                <a href="{{ url_for('project.all') }}" class="btn btn-link">&larr; Back</a>
+                <button type="submit" class="btn btn-primary ml-auto">Create new project</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>      
+    </div>
+
+{% endblock %}
