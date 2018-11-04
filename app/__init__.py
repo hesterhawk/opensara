@@ -14,7 +14,7 @@ login = LoginManager(app)
 
 if True != Config.DEBUG_APP:
     from app import errors
-    
+
 from .opensara.auth.controllers import auth
 from .opensara.main.controllers import main
 

@@ -1,8 +1,8 @@
-"""users and projects table
+"""test
 
-Revision ID: f5285fc46a40
+Revision ID: f2651dc039b5
 Revises: 
-Create Date: 2018-11-03 16:09:35.653107
+Create Date: 2018-11-03 16:57:14.622521
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f5285fc46a40'
+revision = 'f2651dc039b5'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -22,7 +22,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('state', sa.Integer(), nullable=True),
     sa.Column('fullname', sa.String(length=255), nullable=True),
-    sa.Column('token', sa.String(length=24), nullable=True),
+    sa.Column('token', sa.String(length=32), nullable=True),
     sa.Column('created_date', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('token')
