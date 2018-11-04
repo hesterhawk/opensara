@@ -2,15 +2,39 @@
 
 {% block content %}
 
-    <div class="page-header"></div>
-    <div class="row row-cards row-deck">
-      <div class="col-md-12">
-        <div class="row">
-            <div class="col-sm-12">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
 
-            </div>
-        </div>      
+    <style>
+      .title {
+        color: #e6e6e6;
+        font-family: 'Nunito', sans-serif;
+        font-weight: 200;
+        font-size: 78px;
+        margin-top:100px;
+      }
+
+      .description {
+        color: #9a9a9a;
+      }
+
+      .header-brand-img {
+        width: 40px;
+        height: 40px;
+      }
+    </style>
+
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="col-4 text-center">
+        <div class="title">
+          OpenSara
+        </div>
+        <br>
+        <p class="description">coming soon</p>
+        <img src="{{ url_for('static', filename='img/logo.png') }}" class="header-brand-img" alt="tabler logo"> 
       </div>
     </div>
+    <div class="col-4"></div>
 
 {% endblock %}
