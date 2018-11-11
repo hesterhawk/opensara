@@ -16,18 +16,20 @@
 
     <div class="row row-cards row-deck align-items-center">
   
-      <div class="col-md-2">
-        <div class="card-body">
-          <div class="mb-4 text-center">
-            <a href="#"><span class="avatar avatar-xxl avatar-cyan">FA</span></a>
+      {% for project in projects %}
+        <div class="col-md-2">
+          <div class="card-body">
+            <div class="mb-4 text-center">
+              <a href="{{ url_for('customer.all', project_id=project.id) }}"><span class="avatar avatar-xxl avatar-cyan">FA</span></a>
+            </div>
+            <h4 class="card-title text-center">
+              <a href="{{ url_for('customer.all', project_id=project.id) }}">
+                {{ project.fullname }}
+              </a>
+            </h4>
           </div>
-          <h4 class="card-title text-center">
-            <a href="javascript:void(0)">
-              Falcon Aviator
-            </a>
-          </h4>
         </div>
-      </div>
+      {% endfor %}
 
       <div class="col-md-2">
         <div class="card-body">

@@ -18,6 +18,7 @@ if True != Config.DEBUG_APP:
 from .opensara.auth.controllers import auth
 from .opensara.main.controllers import main
 from .opensara.project.controllers import project
+from .opensara.customer.controllers import customer
 
 """
     [BUG] blueprint template_folder: https://stackoverflow.com/questions/7974771/flask-blueprint-template-folder
@@ -26,5 +27,6 @@ from .opensara.project.controllers import project
 app.register_blueprint(auth)
 app.register_blueprint(main)
 app.register_blueprint(project)
+app.register_blueprint(customer)
 
 # app.url_map

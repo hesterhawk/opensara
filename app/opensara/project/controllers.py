@@ -2,8 +2,8 @@ from flask import Blueprint, current_app, render_template, flash, redirect, url_
 from flask_login import current_user
 from datetime import datetime
 
-from .forms.create_project import CreateProjectForm
-from .forms.update_project import UpdateProjectForm
+from .forms.create import CreateProjectForm
+from .forms.update import UpdateProjectForm
 
 project = Blueprint('project', __name__, template_folder="views")
 
@@ -15,7 +15,7 @@ def all():
     if not current_user.is_authenticated:
         return redirect(url_for('auth.login'))
 
-    return render_template('all.html')    
+    return render_template('projects.html', projects=Project.query.all())    
 
 @project.route('/project/create', methods=['GET', 'POST'])
 def create():
@@ -33,10 +33,10 @@ def create():
         flash("Project created successfully!")
         return redirect(url_for('project.all'))    
 
-    return render_template('create.html', form=form)
+    return render_template('project_create.html', form=form)
 
 @project.route('/project/update/<int:id>', methods=['GET', 'POST'])
-def update(id):
+def update(id: int):
     project = Project.query.get(id)
     form = UpdateProjectForm()
 
@@ -47,7 +47,7 @@ def update(id):
         flash("Project updated successfully!")
         return redirect(url_for('project.update', id=project.id))        
 
-    return render_template('update.html', project=project, form=form)
+    return render_template('project_update.html', project=project, form=form)
 
 ### TODO
 ### Destroy project
