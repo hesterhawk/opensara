@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-body">
     <div class="row">
-      <div class="col-4">    
+      <div class="col-3">    
         <select tabindex="1" name="beast" id="select-beast" class="form-control custom-select" placeholder="Go to @customer..">
           <option value=""></option>
           <option value="1">Chuck Testa</option>
@@ -15,12 +15,21 @@
         <form action="{{ url_for('customer.all', project_id=project.id) }}" method="post">
           <div class="row">
           {{ form.hidden_tag() }}
-          <div class="col-6"> 
-            {{ form.fullname(size=32, tabindex='2', class='form-control is-invalid' if form.fullname.errors else 'form-control', placeholder='@customer..') }}
-            {% for error in form.fullname.errors %}<div class="invalid-feedback">{{ error }}</div> {% endfor %}                      
+          <div class="col-5"> 
+            {{ form.instagram_login(size=32, tabindex='2', class='form-control is-invalid' if form.instagram_login.errors else 'form-control', placeholder='@customer..') }}
+            {% for error in form.instagram_login.errors %}<div class="invalid-feedback">{{ error }}</div> {% endfor %}                      
           </div>
-          <div class="col-6"> 
-            <button tabindex="3" class="btn btn-primary">Create customer</button>
+          <div class="col-4">
+            <select tabindex="3" name="state" class="form-control {% if form.state.errors %} is-invalid {% endif %} custom-select">
+              <option value="">Label</option>
+              <option value="1">Important</option>
+              <option value="2">We will see</option>
+              <option value="3">Todo</option>
+            </select>
+            {% for error in form.state.errors %}<div class="invalid-feedback">{{ error }}</div> {% endfor %}
+          </div>
+          <div class="col-3"> 
+            <button tabindex="4" class="btn btn-primary">Create customer</button>
           </div>
           </div>
         </form>

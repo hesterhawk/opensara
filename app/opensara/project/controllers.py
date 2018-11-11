@@ -35,7 +35,7 @@ def create():
 
     return render_template('project_create.html', form=form)
 
-@project.route('/project/update/<int:id>', methods=['GET', 'POST'])
+@project.route('/project/update/<id>', methods=['GET', 'POST'])
 def update(id: int):
     project = Project.query.get(id)
     form = UpdateProjectForm()
