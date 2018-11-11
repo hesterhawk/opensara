@@ -6,6 +6,6 @@ from app.models.project import Project
 
 class UpdateProjectForm(FlaskForm):
 
-    fullname = StringField('Fullname', validators=[DataRequired(), Length(min=6, max=10)])
+    fullname = StringField('Fullname', validators=[DataRequired(), Length(max=128)])
 
     submit = SubmitField('Sign In')

@@ -34,3 +34,20 @@ def create():
         return redirect(url_for('project.all'))    
 
     return render_template('create.html', form=form)
+
+@project.route('/project/update/<int:id>', methods=['GET', 'POST'])
+def update(id):
+    project = Project.query.get(id)
+    form = UpdateProjectForm()
+
+    if form.validate_on_submit():
+        project.fullname=form.fullname.data        
+        db.session.commit()
+        
+        flash("Project updated successfully!")
+        return redirect(url_for('project.update', id=project.id))        
+
+    return render_template('update.html', project=project, form=form)
+
+### TODO
+### Destroy project

@@ -2,17 +2,16 @@
 
 {% block content %}
 
-
     {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <div class="row">
-        <div class="col-md-12">
-          <div class="alert alert-info" role="alert">
-            {{ messages[0] }}
-          </div>             
+      {% if messages %}
+        <div class="row">
+          <div class="col-md-12">
+            <div class="alert alert-info" role="alert">
+              {{ messages[0] }}
+            </div>             
+          </div>
         </div>
-      </div>
-    {% endif %}
+      {% endif %}
     {% endwith %}
 
     <div class="row row-cards row-deck align-items-center">

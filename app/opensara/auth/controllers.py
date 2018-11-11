@@ -11,7 +11,7 @@ from app.models.user import User
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('main.dashboard'))
+        return redirect(url_for('project.all'))
 
     form = LoginForm()    
     if form.validate_on_submit():
@@ -22,7 +22,7 @@ def login():
             return redirect(url_for('auth.login'))
 
         login_user(user, remember=form.remember_me)
-        return redirect(url_for('main.dashboard'))
+        return redirect(url_for('project.all'))
 
     return render_template('login.html', form=form)
 
