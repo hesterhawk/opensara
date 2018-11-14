@@ -20,35 +20,38 @@
     
     <br>
 
-    <div class="row row-cards row-deck align-items-center">
-      <div class="col-md-12">
-        {% include '_control.html' %}
-      </div>
-    </div>
+    {% include '_control.html' %}
 
-    <div class="row row-cards row-deck align-items-center">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="table-responsive">
-            <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
-              <thead>
-                <tr>
-                  <th class="text-center w-1"><i class="icon-people"></i></th>
-                  <th>Customer</th>
-                  <th class="text-center"><i class="icon-settings"></i></th>
-                </tr>
-              </thead>
-              <tbody>
-                {% include '_customer.html' %}
-              </tbody>
-            </table>
+    {% if [] != customers %}
+
+      <div class="row row-cards row-deck align-items-center">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="table-responsive">
+              <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
+                <thead>
+                  <tr>
+                    <th class="text-center w-1"><i class="icon-people"></i></th>
+                    <th>Customer</th>
+                    <th>State</th>
+                    <th>Activity</th>
+                    <th></th>
+                    <th class="text-center"><i class="icon-settings"></i></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% include '_customer.html' %}
+                </tbody>
+              </table>
+            </div>
           </div>
+
+          {{ pagination.links }}
+
         </div>
-
-        {{ pagination.links }}
-
       </div>
-    </div>
+
+    {% endif %}
 
     <script>
       require(['jquery', 'selectize'], function ($, selectize) {

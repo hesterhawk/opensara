@@ -13,7 +13,7 @@ from app.models.customer import Customer
 
 PER_PAGE = 10
 
-@customer.route('/customers/<project_id>', methods=['GET', 'POST'])
+@customer.route('/customers/<int:project_id>', methods=['GET', 'POST'])
 def all(project_id: int):
     if not current_user.is_authenticated:
         return redirect(url_for('auth.login'))
@@ -41,13 +41,15 @@ def all(project_id: int):
 
     return render_template(
         'customers.html', 
+        form=form,
         project=project, 
         customers=customers,
         pagination=pagination,
-        form=form
+        all_customers=Customer.query.filter_by(project_id=project.id).all(),
+        two_customers_count=Customer.query.filter_by(project_id=project.id,state=2).count()
     )
 
-@customer.route('/customer/<id>', methods=['GET', 'POST'])
+@customer.route('/customer/show/<id>', methods=['GET', 'POST'])
 def show(id: int):
     if not current_user.is_authenticated:
         return redirect(url_for('auth.login'))

@@ -2,7 +2,7 @@
 <tr>
     <td class="text-center">
       <div class="avatar d-block" style="background-image: url(demo/faces/female/26.jpg)">
-        <span class="avatar-status bg-green"></span>
+        <span class="avatar-status"></span>
       </div>
     </td>
     <td>
@@ -11,17 +11,26 @@
         Created: {{ customer.created_date.strftime('%Y-%m-%d %I:%M:%S') }}
       </div>
     </td>
-    <td class="text-center">
-      <div class="item-action dropdown">
-        <a href="javascript:void(0)" data-toggle="dropdown" class="icon"><i class="fe fe-more-vertical"></i></a>
-        <div class="dropdown-menu dropdown-menu-right">
-          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Action </a>
-          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-edit-2"></i> Another action </a>
-          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-message-square"></i> Something else here</a>
-          <div class="dropdown-divider"></div>
-          <a href="javascript:void(0)" class="dropdown-item"><i class="dropdown-icon fe fe-link"></i> Separated link</a>
-        </div>
+    <td>
+      <div>
+        {% if 1 == customer.state %}
+          <span class="badge badge-danger">Important</span>
+        {% elif 2 == customer.state %}
+          <span class="badge badge-warning">We will see</span>        
+        {% elif 3 == customer.state %}
+          <span class="badge badge-success">TODO</span>
+        {% endif %}
       </div>
+    </td>       
+    <td>
+      <div class="small text-muted">Last login</div>
+      <div>4 minutes ago</div>
+    </td>
+    <td class="text-center">
+      <a href="{{ url_for('customer.show', id=customer.id) }}" class="btn btn-secondary btn-sm">Manage</a>    
+    </td>
+    <td class="text-center">
+      <a href="#" class="icon"><i class="fe fe-trash"></i></a>
     </td>
 </tr>
 {% endfor %}
