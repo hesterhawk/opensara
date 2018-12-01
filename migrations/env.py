@@ -23,6 +23,7 @@ config.set_main_option('sqlalchemy.url',
 # target_metadata = current_app.extensions['migrate'].db.metadata
 
 from app.models.user import User
+from app.models.note import Note
 from app.models.customer import Customer
 from app.models.project import Project
 target_metadata = Project.metadata

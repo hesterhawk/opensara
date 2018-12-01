@@ -27,7 +27,8 @@
       <div>4 minutes ago</div>
     </td>
     <td class="text-center">
-      <a href="{{ url_for('customer.show', id=customer.id) }}" class="btn btn-secondary btn-sm">Manage</a>    
+      <a href="{{ url_for('note.all', customer_id=customer.id) }}" class="btn btn-secondary cb-notes btn-sm">Notes</a>
+      <a href="https://instagram.com/{{ customer.instagram_login }}" class="btn btn-secondary btn-sm" target="_blank">Instagram</a>
     </td>
     <td class="text-center">
       <a href="{{ url_for('customer.destroy', id=customer.id) }}" class="icon"><i class="fe fe-trash"></i></a>

@@ -1,0 +1,16 @@
+.cb-notes { 
+    margin-right:20px; 
+}
+.left-breadcrumb { 
+    margin-right: 10px; 
+}
+.middle-breadcrumb { 
+    margin: 0px 10px 0px 10px; 
+}
+.right-breadcrumb { 
+    margin-left: 10px; 
+}
+.no-data {
+    text-align: center;
+    color: #d4d4d4;
+}

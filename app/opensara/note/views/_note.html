@@ -1,0 +1,32 @@
+{% for note in notes %}
+  <tr>
+    <td>
+      <div>{{ note.message }}</div>
+    </td>
+    <td>
+      {% if None != note.instagram_post_url %}
+        <a href="{{ note.instagram_post_url }}" class="btn btn-primary" target="_blank">Go</a>
+      {% else %}
+        -
+      {% endif %}
+    </td>
+    <td>
+      <div>
+      {% if 1 == note.state %}
+        <span class="badge badge-danger">Important</span>
+      {% elif 2 == note.state %}
+        <span class="badge badge-warning">We will see</span>        
+      {% elif 3 == note.state %}
+        <span class="badge badge-success">TODO</span>
+      {% endif %}
+      </div>
+    </td>       
+    <td>
+      <div class="small text-muted">Created</div>
+      <div>{{ note.created_date.strftime('%Y-%m-%d %I:%M:%S') }}</div>
+    </td>
+    <td class="text-center">
+      <a href="#" class="icon"><i class="fe fe-trash"></i></a>
+    </td>
+  </tr>
+{% endfor %}

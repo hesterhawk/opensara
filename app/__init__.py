@@ -19,6 +19,7 @@ from .opensara.auth.controllers import auth
 from .opensara.main.controllers import main
 from .opensara.project.controllers import project
 from .opensara.customer.controllers import customer
+from .opensara.note.controllers import note
 
 """
     [BUG] blueprint template_folder: https://stackoverflow.com/questions/7974771/flask-blueprint-template-folder
@@ -28,5 +29,5 @@ app.register_blueprint(auth)
 app.register_blueprint(main)
 app.register_blueprint(project)
 app.register_blueprint(customer)
-
+app.register_blueprint(note)
 # app.url_map

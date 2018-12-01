@@ -62,10 +62,3 @@ def destroy(id: int):
         return redirect(url_for('customer.all', project_id=project))
 
     return render_template('customer_destroy.html', customer=customer)
-
-@customer.route('/customer/show/<id>', methods=['GET', 'POST'])
-@login_required
-def show(id: int):
-    customer = Customer.query.get(id)
-
-    return render_template('customer.html', customer=customer)
