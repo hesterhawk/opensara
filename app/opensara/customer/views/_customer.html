@@ -30,7 +30,7 @@
       <a href="{{ url_for('customer.show', id=customer.id) }}" class="btn btn-secondary btn-sm">Manage</a>    
     </td>
     <td class="text-center">
-      <a href="#" class="icon"><i class="fe fe-trash"></i></a>
+      <a href="{{ url_for('customer.destroy', id=customer.id) }}" class="icon"><i class="fe fe-trash"></i></a>
     </td>
 </tr>
 {% endfor %}
