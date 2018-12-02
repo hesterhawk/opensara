@@ -14,14 +14,6 @@
       {% endif %}
     {% endwith %}
 
-    <h1 class="page-title">
-        <span class="left-breadcrumb">{{ customer.project.fullname }}</span> &#187; 
-        <span class="middle-breadcrumb"><a href="{{ url_for('customer.all', project_id=customer.project.id) }}">customers</a></span> &#187; 
-        <span class="right-breadcrumb">@{{ customer.instagram_login }}</span>
-    </h1>
-    
-    <br>
-
     {% include '_notes_control.html' %}
 
     {% if [] != notes %}
@@ -33,6 +25,7 @@
               <table class="table table-hover table-outline table-vcenter text-nowrap card-table">
                 <thead>
                   <tr>
+                    <th>Customer</th>
                     <th>Message</th>
                     <th>Instagram post url</th>
                     <th>State</th>
@@ -59,5 +52,13 @@
       </div>
 
     {% endif %}
+
+    <script>
+      require(['jquery', 'selectize'], function ($, selectize) {
+        $(document).ready(function () {                
+          $('#select-beast').selectize();      
+        });
+      });
+    </script>
 
 {% endblock %}

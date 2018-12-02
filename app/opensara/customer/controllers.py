@@ -14,9 +14,9 @@ from app.middleware.user_auth import login_required
 
 PER_PAGE = 10
 
-@customer.route('/customers/<int:project_id>', methods=['GET', 'POST'])
-def all(project_id: int):
-    project = Project.query.get(project_id)
+@customer.route('/customers/<string:project_token>', methods=['GET', 'POST'])
+def all(project_token: str):
+    project = Project.query.filter_by(token=project_token).first()
     
     page = request.args.get(get_page_parameter(), type=int, default=1)
     customers = Customer.query.filter_by(project_id=project.id).order_by(Customer.state).paginate(page, PER_PAGE, False).items
@@ -36,15 +36,16 @@ def all(project_id: int):
         db.session.commit()
 
         flash("Customer created successfully!")
-        return redirect(url_for('customer.all', project_id=project.id))
+        return redirect(url_for('customer.all', project_token=project.token))
 
     return render_template(
         'customers.html', 
+        _menu='customers',
         form=form,
         project=project, 
         customers=customers,
         pagination=pagination,
-        all_customers=Customer.query.filter_by(project_id=project.id).all(),
+        control_customers=Customer.query.filter_by(project_id=project.id).all(),
         two_customers_count=Customer.query.filter_by(project_id=project.id,state=2).count()
     )
 
@@ -52,13 +53,18 @@ def all(project_id: int):
 def destroy(id: int):
 
     customer = Customer.query.get(id)
-    project = customer.project_id
+    project = Project.query.filter_by(token=customer.project.token).first()
 
     if 'POST' == request.method:
         db.session.delete(customer)
         db.session.commit()
         
         flash("Customer destroyed successfully!")
-        return redirect(url_for('customer.all', project_id=project))
+        return redirect(url_for('customer.all', project_token=project.token))
 
-    return render_template('customer_destroy.html', customer=customer)
+    return render_template(
+        'customer_destroy.html', 
+        _menu='customers',
+        project=project,
+        customer=customer
+    )

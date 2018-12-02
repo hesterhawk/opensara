@@ -2,14 +2,6 @@
 
 {% block content %}
 
-    <h1 class="page-title">
-      <span class="left-breadcrumb">{{ customer.project.fullname }}</span> &#187; 
-      <span class="middle-breadcrumb"><a href="{{ url_for('customer.all', project_id=customer.project.id) }}">customers</a></span> &#187; 
-      <span class="right-breadcrumb">@{{ customer.instagram_login }}</span>
-    </h1>
-    
-    <br>
-
     <div class="row row-cards row-deck align-items-center">
       <div class="col-md-8">
 
@@ -22,7 +14,7 @@
               </div>
               <div class="card-body">
                 <form action="{{ url_for('customer.destroy', id=customer.id) }}" method="post">
-                  <a href="{{ url_for('customer.all', project_id=customer.project.id) }}" class="btn btn-secondary">&larr; back</a>
+                  <a href="{{ url_for('customer.all', project_token=customer.project.token) }}" class="btn btn-secondary">&larr; back</a>
                   <button class="btn btn-danger pull-right">Delete customer</button>
                 </form>
               </div>

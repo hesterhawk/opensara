@@ -8,23 +8,29 @@ note = Blueprint('note', __name__, template_folder="views")
 
 from app import db
 from app.models.note import Note
+from app.models.project import Project
 from app.models.customer import Customer
 
 PER_PAGE = 10
 
-@note.route('/notes/all/<customer_id>', methods=['GET', 'POST'])
-def all(customer_id: int):
-    customer = Customer.query.get(customer_id)
+@note.route('/notes/all/<string:project_token>', methods=['GET', 'POST'])
+def all(project_token: str):
+
+    project = Project.query.filter_by(token=project_token).first()
+    customers = project.customers.all()
     
+    ids = [c.id for c in customers]
+
     page = request.args.get(get_page_parameter(), type=int, default=1)
-    notes = Note.query.filter_by(customer_id=customer.id).order_by(Note.state).paginate(page, PER_PAGE, False).items
-    pagination = Pagination(per_page=PER_PAGE, page=page, total=Note.query.count(), record_name='notes', css_framework='bootstrap4')
+    notes = Note.query.filter(Note.customer_id.in_(ids)).order_by(Note.state).paginate(page, PER_PAGE, False).items
+    pagination = Pagination(per_page=PER_PAGE, page=page, total=Note.query.filter(Note.customer_id.in_(ids)).count(), record_name='notes', css_framework='bootstrap4')
 
     form = CreateNoteForm()
+    form.customer_id.choices = [("{}".format(c.id), c.instagram_login) for c in customers]
 
     if form.validate_on_submit():
         note = Note(
-            customer_id=customer.id, 
+            customer_id = form.customer_id.data,
             state=form.state.data, 
             message=form.message.data, 
             created_date=datetime.now()
@@ -34,12 +40,14 @@ def all(customer_id: int):
         db.session.commit()
 
         flash("Note created successfully!")
-        return redirect(url_for('note.all', customer_id=customer.id))
+        return redirect(url_for('note.all', project_token=project.token))
 
     return render_template(
         'notes.html',
+        _menu='notes',
         form=form,
         notes=notes,
-        customer=customer,
+        customers=customers,
+        project=project,
         pagination=pagination
     )

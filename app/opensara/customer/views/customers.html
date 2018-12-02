@@ -14,13 +14,6 @@
       {% endif %}
     {% endwith %}
 
-    <h1 class="page-title">
-      <span class="left-breadcrumb">{{ project.fullname }}</span> &#187;
-      <span class="middle-breadcrumb">customers</span>
-    </h1>
-    
-    <br>
-
     {% include '_customers_control.html' %}
 
     {% if [] != customers %}
@@ -55,19 +48,22 @@
     {% else %}
 
       <div class="no-data">
-        <h2>Add some customers</h2>
+        <h2>Add some customers Bro!</h2>
       </div>
 
     {% endif %}
 
     <script>
+
+      // TODO: redirecting
+
       require(['jquery', 'selectize'], function ($, selectize) {
         $(document).ready(function () {                
           $('#select-beast').selectize({
             onChange: function () {
               if( this.getValue() > 0 )
               {
-                window.location.href = "{{ url_for('note.all', customer_id='') }}" + this.getValue();
+                window.location.href = "{{ url_for('note.all', project_token=project_token) }}" + this.getValue();
               }
             }
           });      

@@ -1,6 +1,9 @@
 {% for note in notes %}
   <tr>
     <td>
+      <div>@{{ note.customer.instagram_login }}</div>
+    </td>
+    <td>
       <div>{{ note.message }}</div>
     </td>
     <td>
@@ -15,9 +18,9 @@
       {% if 1 == note.state %}
         <span class="badge badge-danger">Important</span>
       {% elif 2 == note.state %}
-        <span class="badge badge-warning">We will see</span>        
+        <span class="badge badge-warning">Medium</span>        
       {% elif 3 == note.state %}
-        <span class="badge badge-success">TODO</span>
+        <span class="badge badge-success">Nice to have</span>
       {% endif %}
       </div>
     </td>       

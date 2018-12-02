@@ -7,9 +7,7 @@
     </td>
     <td>
       <div>@{{ customer.instagram_login }}</div>
-      <div class="small text-muted">
-        Created: {{ customer.created_date.strftime('%Y-%m-%d %I:%M:%S') }}
-      </div>
+      <div class="small text-muted"></div>
     </td>
     <td>
       <div>
@@ -23,11 +21,11 @@
       </div>
     </td>       
     <td>
-      <div class="small text-muted">Last login</div>
-      <div>4 minutes ago</div>
+      <div class="small text-muted">Created</div>
+      <div>{{ customer.created_date.strftime('%Y-%m-%d %H:%M:%S') }}</div>
     </td>
     <td class="text-center">
-      <a href="{{ url_for('note.all', customer_id=customer.id) }}" class="btn btn-secondary cb-notes btn-sm">Notes</a>
+      <a href="{{ url_for('note.all', project_token=project.token) }}" class="btn btn-secondary cb-notes btn-sm">Notes</a>
       <a href="https://instagram.com/{{ customer.instagram_login }}" class="btn btn-secondary btn-sm" target="_blank">Instagram</a>
     </td>
     <td class="text-center">

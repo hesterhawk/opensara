@@ -14,7 +14,10 @@
         <div class="col-lg order-lg-first">
           <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
             <li class="nav-item">
-              <a href="{{ url_for('project.all') }}" class="nav-link active"><i class="fe fe-home"></i> My Projects</a>
+              <a href="{{ url_for('customer.all', project_token=project.token) }}" class="nav-link {% if 'customers' == _menu %}active{% endif %}"><i class="fe fe-users"></i> My Customers</a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ url_for('note.all', project_token=project.token) }}" class="nav-link {% if 'notes' == _menu %}active{% endif %}"><i class="fe fe-file-text"></i> My Notes</a>
             </li>
             <!-- useful menu <li class="nav-item">
               <a href="#" class="nav-link active"><i class="fa fa-sitemap"></i> Water tanks</a>

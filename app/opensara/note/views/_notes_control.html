@@ -4,29 +4,28 @@
       <div class="card-body">
         <div class="row">          
           <div class="col-12">    
-            <form action="{{ url_for('note.all', customer_id=customer.id) }}" method="post">
+            <form action="{{ url_for('note.all', project_token=project.token) }}" method="post">
               <div class="row">
                 {{ form.hidden_tag() }}
+                <div class="col-2">    
+                  {{ form.customer_id(tabindex='1', id='select-beast', class='form-control is-invalid' if form.customer_id.errors else 'form-control', placeholder='Customer..') }}
+                  {% for error in form.customer_id.errors %}<div class="invalid-feedback">{{ error }}</div> {% endfor %}
+                </div>
                 <div class="col-4"> 
                   {{ form.message(size=32, tabindex='2', class='form-control is-invalid' if form.message.errors else 'form-control', placeholder='message..') }}
                   {% for error in form.message.errors %}<div class="invalid-feedback">{{ error }}</div> {% endfor %}                      
                 </div>
-                <div class="col-3"> 
-                  {{ form.instagram_post_url(size=32, tabindex='2', class='form-control is-invalid' if form.instagram_post_url.errors else 'form-control', placeholder='Instagram post url..') }}
+                <div class="col-2"> 
+                  {{ form.instagram_post_url(size=32, tabindex='3', class='form-control is-invalid' if form.instagram_post_url.errors else 'form-control', placeholder='Instagram post url..') }}
                   {% for error in form.instagram_post_url.errors %}<div class="invalid-feedback">{{ error }}</div> {% endfor %}                      
                 </div>              
                 <div class="col-2">
-                  <select tabindex="3" name="state" class="form-control {% if form.state.errors %} is-invalid {% endif %} custom-select">
-                    <option value="">State</option>
-                    <option value="1">Important</option>
-                    <option value="2">We will see</option>
-                    <option value="3">Todo</option>
-                  </select>
+                  {{ form.state(tabindex='4', class='form-control is-invalid' if form.state.errors else 'form-control', placeholder='State..') }}
                   {% for error in form.state.errors %}<div class="invalid-feedback">{{ error }}</div> {% endfor %}
                 </div>
-                <div class="col-3"> 
-                  <button tabindex="4" class="btn btn-primary">Create note</button>
-                  <a href="{{ url_for('note.all', customer_id=customer.id) }}" title="refresh page" class="btn btn-secondary pull-right"><i class="fa fa-refresh"></i></a>
+                <div class="col-2"> 
+                  <button tabindex="5" class="btn btn-primary">Create note</button>
+                  <a href="{{ url_for('note.all', project_token=project.token) }}" title="refresh page" class="btn btn-secondary pull-right"><i class="fa fa-refresh"></i></a>
                 </div>
               </div>
             </form>

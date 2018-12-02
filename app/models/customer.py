@@ -11,6 +11,7 @@ class Customer(db.Model):
     created_date = db.Column(db.DateTime, default=datetime.utcnow)
 
     project = relationship("Project", back_populates="customers")
+    notes = db.relationship("Note", backref="post", cascade="all, delete-orphan" , lazy='dynamic')
 
     def __repr__(self):
-        return '<Customer {}>'.format(self.fullname)
+        return '<Customer {}>'.format(self.instagram_login)

@@ -7,6 +7,7 @@ auth = Blueprint('auth', __name__, template_folder="views")
 
 from app import db
 from app.models.user import User
+from app.models.project import Project
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -22,7 +23,15 @@ def login():
             return redirect(url_for('auth.login'))
 
         login_user(user, remember=form.remember_me)
-        return redirect(url_for('project.all'))
+
+        """
+            TODO: handle users!!
+        """
+        project = Project.query.get(2)
+        return redirect(url_for('customer.all', project_token=project.token))
+        """
+            /TODO
+        """
 
     return render_template('login.html', form=form)
 
