@@ -29,7 +29,7 @@
       <div>{{ note.created_date.strftime('%Y-%m-%d %I:%M:%S') }}</div>
     </td>
     <td class="text-center">
-      <a href="#" class="icon"><i class="fe fe-trash"></i></a>
+      <a href="{{ url_for('note.destroy', id=note.id, token=project.token) }}" class="icon"><i class="fe fe-trash"></i></a>
     </td>
   </tr>
 {% endfor %}

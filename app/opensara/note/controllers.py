@@ -52,3 +52,13 @@ def all(project_token: str):
         project=project,
         pagination=pagination
     )
+
+@note.route('/note/destroy/<id>', methods=['GET', 'POST'])
+def destroy(id: int):
+
+    note = Note.query.get(id)
+    db.session.delete(note)
+    db.session.commit()
+    
+    flash("Note destroyed successfully!")
+    return redirect(url_for('note.all', project_token=request.args['token']))
