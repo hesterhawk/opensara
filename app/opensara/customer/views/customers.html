@@ -54,16 +54,14 @@
     {% endif %}
 
     <script>
-
-      // TODO: redirecting
-
+      
       require(['jquery', 'selectize'], function ($, selectize) {
         $(document).ready(function () {                
           $('#select-beast').selectize({
             onChange: function () {
               if( this.getValue() > 0 )
               {
-                window.location.href = "{{ url_for('note.all', project_token=project_token) }}" + this.getValue();
+                window.location.href = "{{ url_for('note.all', project_token=project.token) }}?customer=" + this.getValue();
               }
             }
           });      

@@ -20,12 +20,13 @@ def all(project_token: str):
     customers = project.customers.all()
     
     ids = [c.id for c in customers]
+    form_customer_id = request.args['customer'] if 'customer' in request.args else None
 
     page = request.args.get(get_page_parameter(), type=int, default=1)
     notes = Note.query.filter(Note.customer_id.in_(ids)).order_by(Note.state).paginate(page, PER_PAGE, False).items
     pagination = Pagination(per_page=PER_PAGE, page=page, total=Note.query.filter(Note.customer_id.in_(ids)).count(), record_name='notes', css_framework='bootstrap4')
 
-    form = CreateNoteForm()
+    form = CreateNoteForm(customer_id=form_customer_id)
     form.customer_id.choices = [("{}".format(c.id), c.instagram_login) for c in customers]
 
     if form.validate_on_submit():
