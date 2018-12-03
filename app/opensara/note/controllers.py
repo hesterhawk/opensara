@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, flash, redirect, url_for, request
 from flask_paginate import Pagination, get_page_parameter
 from datetime import datetime
+from sqlalchemy import and_
 
 from .forms.create import CreateNoteForm
 
@@ -11,20 +12,31 @@ from app.models.note import Note
 from app.models.project import Project
 from app.models.customer import Customer
 
-PER_PAGE = 10
+PER_PAGE = 1
 
+"""
+    TODO:
+        search form:
+        - c: select with customers
+        - s: select with states
+        
+        security:
+        - token
+        - c parameter
+"""
 @note.route('/notes/all/<string:project_token>', methods=['GET', 'POST'])
 def all(project_token: str):
 
     project = Project.query.filter_by(token=project_token).first()
     customers = project.customers.all()
-    
-    ids = [c.id for c in customers]
-    form_customer_id = request.args['customer'] if 'customer' in request.args else None
+
+    params = _search_parameters(request, customers)
 
     page = request.args.get(get_page_parameter(), type=int, default=1)
-    notes = Note.query.filter(Note.customer_id.in_(ids)).order_by(Note.state).paginate(page, PER_PAGE, False).items
-    pagination = Pagination(per_page=PER_PAGE, page=page, total=Note.query.filter(Note.customer_id.in_(ids)).count(), record_name='notes', css_framework='bootstrap4')
+    notes = Note.query.filter(params).order_by(Note.state).paginate(page, PER_PAGE, False).items
+    pagination = Pagination(per_page=PER_PAGE, page=page, total=Note.query.filter(params).count(), record_name='notes', css_framework='bootstrap4')
+
+    form_customer_id = request.args['c'] if 'c' in request.args else None
 
     form = CreateNoteForm(customer_id=form_customer_id)
     form.customer_id.choices = [("{}".format(c.id), c.instagram_login) for c in customers]
@@ -62,3 +74,15 @@ def destroy(id: int):
     
     flash("Note destroyed successfully!")
     return redirect(url_for('note.all', project_token=request.args['token']))
+
+### private
+
+def _search_parameters(request, customers):
+
+    states = [request.args['s']] if 's' in request.args else [1,2,3]
+    customer_ids = [request.args['c']] if 'c' in request.args else [c.id for c in customers]    
+
+    return and_(
+        Note.state.in_(states),
+        Note.customer_id.in_(customer_ids)        
+    )

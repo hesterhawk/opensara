@@ -1,6 +1,5 @@
 from app import db
 from datetime import datetime
-from sqlalchemy.orm import relationship
 
 class Customer(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -10,7 +9,7 @@ class Customer(db.Model):
     fullname = db.Column(db.String(128))
     created_date = db.Column(db.DateTime, default=datetime.utcnow)
 
-    project = relationship("Project", back_populates="customers")
+    project = db.relationship("Project", back_populates="customers")
     notes = db.relationship("Note", backref="post", cascade="all, delete-orphan" , lazy='dynamic')
 
     def __repr__(self):

@@ -61,7 +61,7 @@
             onChange: function () {
               if( this.getValue() > 0 )
               {
-                window.location.href = "{{ url_for('note.all', project_token=project.token) }}?customer=" + this.getValue();
+                window.location.href = "{{ url_for('note.all', project_token=project.token) }}?c=" + this.getValue();
               }
             }
           });      
