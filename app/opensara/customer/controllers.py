@@ -45,7 +45,8 @@ def all(project_token: str):
         form=form,
         project=project, 
         customers=customers,
-        pagination=pagination
+        pagination=pagination,
+        select_customers=Customer.query.filter_by(project_id=project.id).all()
     )
 
 @customer.route('/customer/destroy/<id>', methods=['GET', 'POST'])

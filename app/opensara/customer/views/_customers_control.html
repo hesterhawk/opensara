@@ -6,7 +6,7 @@
           <div class="col-3">    
             <select tabindex="1" name="beast" id="select-beast" class="form-control custom-select" placeholder="Go to @customer..">
               <option value=""></option>
-              {% for customer in control_customers %}              
+              {% for customer in select_customers %}              
                 <option value="{{ customer.id }}">{{ customer.instagram_login }}</option>
               {% endfor %}
             </select>
