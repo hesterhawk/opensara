@@ -24,8 +24,7 @@
                   {% for error in form.state.errors %}<div class="invalid-feedback">{{ error }}</div> {% endfor %}
                 </div>
                 <div class="col-2"> 
-                  <button tabindex="5" class="btn btn-primary">Create note</button>
-                  <a href="{{ url_for('note.all', project_token=project.token) }}" title="refresh page" class="btn btn-secondary pull-right"><i class="fa fa-refresh"></i></a>
+                  <button tabindex="5" class="btn btn-primary pull-right">Create note</button>
                 </div>
               </div>
             </form>

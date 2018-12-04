@@ -1,0 +1,17 @@
+<div class="card-body">
+    <form action="{{ url_for('note.all', project_token=project.token) }}" method="get">
+      <div class="row">
+        <div class="col-6"></div>                    
+        <div class="col-2">    
+          {{ search_form.c(class='form-control is-invalid' if form.customer_id.errors else 'form-control', placeholder='Customer..') }}
+        </div>
+        <div class="col-2">
+          {{ search_form.s(tabindex='4', class='form-control is-invalid' if form.state.errors else 'form-control', placeholder='State..') }}
+        </div>                   
+        <div class="col-2">
+          <a href="{{ url_for('note.all', project_token=project.token) }}" title="refresh page" class="btn btn-secondary pull-right"><i class="fa fa-refresh"></i></a>                                            
+          <button style="margin-right:20px;" class="btn btn-primary pull-right"><i class="fa fa-search"></i></button>
+        </div>
+      </div>
+    </form>
+  </div>

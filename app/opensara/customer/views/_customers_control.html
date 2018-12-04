@@ -41,12 +41,7 @@
                 {% for error in form.instagram_login.errors %}<div class="invalid-feedback">{{ error }}</div> {% endfor %}                      
               </div>
               <div class="col-4">
-                <select tabindex="3" name="state" class="form-control {% if form.state.errors %} is-invalid {% endif %} custom-select">
-                  <option value="">State</option>
-                  <option value="1">Important</option>
-                  <option value="2">We will see</option>
-                  <option value="3">Todo</option>
-                </select>
+                {{ form.state(tabindex='3', class='form-control is-invalid' if form.state.errors else 'form-control', placeholder='State..') }}
                 {% for error in form.state.errors %}<div class="invalid-feedback">{{ error }}</div> {% endfor %}
               </div>
               <div class="col-3"> 

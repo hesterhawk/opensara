@@ -3,20 +3,17 @@ from wtforms import StringField, IntegerField, SubmitField, SelectField
 from wtforms.widgets import TextArea
 from wtforms.validators import ValidationError, DataRequired, Length
 
+from app.config.dashboard import Notes
+
 from .url_validator import UrlValidator
 
 class CreateNoteForm(FlaskForm):
     
-    customer_id = SelectField('State', validators=[DataRequired()])
+    customer_id = SelectField('Customer', validators=[DataRequired()])
     instagram_post_url = StringField('Instagram post url', validators=[Length(max=255)])    
     message = StringField('Message', widget=TextArea(), validators=[DataRequired(), Length(max=4000)])    
     state = SelectField('State',
-        choices = [
-            (None, 'State..'), 
-            ('1', 'Important'), 
-            ('2', 'Medium'), 
-            ('3', 'Nice to have')
-        ],
+        choices = Notes.state,
         validators=[DataRequired()]
     )
     submit = SubmitField('Create new Note')
