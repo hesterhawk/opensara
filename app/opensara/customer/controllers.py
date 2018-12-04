@@ -34,9 +34,10 @@ def all(project_token: str):
 
         db.session.add(customer)
         db.session.commit()
+        db.session.refresh(customer)
 
         flash("Customer created successfully!")
-        return redirect(url_for('customer.all', project_token=project.token))
+        return redirect(url_for('note.all', project_token=project.token) + '?c=' + str(customer.id))
 
     return render_template(
         'customers.html', 
@@ -44,9 +45,7 @@ def all(project_token: str):
         form=form,
         project=project, 
         customers=customers,
-        pagination=pagination,
-        control_customers=Customer.query.filter_by(project_id=project.id).all(),
-        two_customers_count=Customer.query.filter_by(project_id=project.id,state=2).count()
+        pagination=pagination
     )
 
 @customer.route('/customer/destroy/<id>', methods=['GET', 'POST'])

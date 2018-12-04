@@ -6,7 +6,11 @@
       </div>
     </td>
     <td>
-      <div><b>@{{ customer.instagram_login }}</b></div>
+      <div>
+        <a href="https://www.instagram.com/{{ customer.instagram_login }}" target="_blank">
+          <b>@{{ customer.instagram_login }}</b>
+        </a>
+      </div>
       <div class="small text-muted"></div>
     </td>
     <td>
@@ -14,7 +18,7 @@
         {% if 1 == customer.state %}
           <span class="badge badge-danger">Important</span>
         {% elif 2 == customer.state %}
-          <span class="badge badge-warning">We will see</span>        
+          <span class="badge badge-warning">Monitor</span>        
         {% elif 3 == customer.state %}
           <span class="badge badge-success">TODO</span>
         {% endif %}
@@ -25,8 +29,7 @@
       <div>{{ customer.created_date.strftime('%Y-%m-%d %H:%M:%S') }}</div>
     </td>
     <td class="text-center">
-      <a href="{{ url_for('note.all', project_token=project.token) }}" class="btn btn-secondary cb-notes btn-sm">Notes</a>
-      <a href="https://instagram.com/{{ customer.instagram_login }}" class="btn btn-secondary btn-sm" target="_blank">Instagram</a>
+      <a href="{{ url_for('note.all', project_token=project.token) }}?c={{ customer.id }}" class="btn btn-secondary cb-notes btn-sm">Notes</a>      
     </td>
     <td class="text-center">
       <a href="{{ url_for('customer.destroy', id=customer.id) }}" class="icon"><i class="fe fe-trash"></i></a>

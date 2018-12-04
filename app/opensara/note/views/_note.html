@@ -1,14 +1,18 @@
 {% for note in notes %}
   <tr>
     <td>
-      <div><b>@{{ note.customer.instagram_login }}</b></div>
+      <div>
+        <a href="https://www.instagram.com/{{ note.customer.instagram_login }}" target="_blank">
+          <b>@{{ note.customer.instagram_login }}</b>
+        </a>
+      </div>
     </td>
     <td>
       <div>{{ note.message }}</div>
     </td>
     <td>
-      {% if None != note.instagram_post_url %}
-        <a href="{{ note.instagram_post_url }}" class="btn btn-primary" target="_blank">Go</a>
+      {% if note.instagram_post_url != '' %}
+        <a href="{{ note.instagram_post_url }}" class="btn btn-secondary" target="_blank">Go</a>
       {% else %}
         -
       {% endif %}
