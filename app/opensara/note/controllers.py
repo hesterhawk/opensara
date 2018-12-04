@@ -44,6 +44,7 @@ def all(project_token: str):
             customer_id = form.customer_id.data,
             state=form.state.data, 
             message=form.message.data, 
+            instagram_post_url=form.instagram_post_url.data,
             created_date=datetime.now()
         )
 
