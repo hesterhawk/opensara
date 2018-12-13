@@ -1,0 +1,41 @@
+{% extends "dashboard/index.html" %}
+
+{% block content %}
+
+    <div class="row row-cards row-deck align-items-center">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Update customer</h3>
+          </div>
+          <div class="card-body">
+            <form action="{{ url_for('customer.update', id=customer.id) }}" method="post">
+                {{ form.hidden_tag() }}
+                <div> 
+                    {{ form.instagram_login(value=form.instagram_login.data if form.instagram_login.data else customer.instagram_login, class='form-control is-invalid' if form.instagram_login.errors else 'form-control', placeholder='@customer..') }}
+                    {% for error in form.instagram_login.errors %}<div class="invalid-feedback">{{ error }}</div> {% endfor %}                      
+                </div>
+                <br>
+                <div>
+                    {{ form.state(default=form.state.data if form.state.data else customer.state, class='form-control is-invalid' if form.state.errors else 'form-control', placeholder='State..') }}
+                    {% for error in form.state.errors %}<div class="invalid-feedback">{{ error }}</div> {% endfor %}
+                </div>
+                <br>
+                <div>
+                    {{ form.description(value=form.description.data if form.description.data else customer.description, class='form-control is-invalid' if form.description.errors else 'form-control', placeholder='Description..') }}
+                    {% for error in form.description.errors %}<div class="invalid-feedback">{{ error }}</div> {% endfor %}
+                </div>
+                <br>                
+                <div>
+                    <a href="{{ url_for('customer.all', project_token=customer.project.token) }}" class="btn btn-secondary">&larr; back</a>
+                    <button class="btn btn-primary pull-right">Update customer</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+
+{% endblock %}

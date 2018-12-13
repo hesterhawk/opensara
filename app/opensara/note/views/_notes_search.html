@@ -2,10 +2,10 @@
     <form action="{{ url_for('note.all', project_token=project.token) }}" method="get">
       <div class="row">                  
         <div class="col-2">    
-          {{ search_form.c(tabindex='5', id='select-beast2', class='form-control is-invalid' if form.customer_id.errors else 'form-control', placeholder='Customer..') }}
+          {{ form.c(tabindex='5', id='select-beast2', class='form-control is-invalid' if form.c.errors else 'form-control', placeholder='Customer..') }}
         </div>
         <div class="col-2">
-          {{ search_form.s(tabindex='6', class='form-control is-invalid' if form.state.errors else 'form-control', placeholder='State..') }}
+          {{ form.s(tabindex='6', class='form-control is-invalid' if form.s.errors else 'form-control', placeholder='State..') }}
         </div>                   
         <div class="col-2">
           <button style="margin-right:10px;" class="btn btn-primary"><i class="fa fa-search"></i></button>                                                                

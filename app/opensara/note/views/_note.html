@@ -33,7 +33,8 @@
       <div>{{ note.created_date.strftime('%Y-%m-%d %I:%M:%S') }}</div>
     </td>
     <td class="text-center">
-      <a href="{{ url_for('note.destroy', id=note.id, token=project.token) }}" class="icon"><i class="fe fe-trash"></i></a>
+      <a title="update note" href="{{ url_for('note.update', id=note.id, project_token=project.token) }}" class="icon"><i class="fe fe-edit-2"></i></a>&nbsp;&nbsp;
+      <a title="destroy note" href="{{ url_for('note.destroy', id=note.id, token=project.token) }}" class="icon"><i class="fe fe-trash"></i></a>
     </td>
   </tr>
 {% endfor %}

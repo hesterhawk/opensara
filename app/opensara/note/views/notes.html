@@ -14,15 +14,16 @@
       {% endif %}
     {% endwith %}
 
-    {% if [] != customers %}
-      
-      {% include '_notes_control.html' %}
+    {% if [] != customers %}    
 
       <div class="row row-cards row-deck align-items-center">
         <div class="col-md-12">
           <div class="card">
             <div class="card-header">
               <h3 class="card-title">My notes</h3>
+              <div class="card-options">
+                <a title="create note" href="{{ url_for('note.create', project_token=project.token) }}" title="refresh page" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+              </div>
             </div>
             
             {% include '_notes_search.html' %}

@@ -4,6 +4,7 @@ from flask_paginate import Pagination, get_page_parameter
 from datetime import datetime
 
 from .forms.create import CreateCustomerForm
+from .forms.update import UpdateCustomerForm
 
 customer = Blueprint('customer', __name__, template_folder="views")
 
@@ -19,7 +20,7 @@ def all(project_token: str):
     project = Project.query.filter_by(token=project_token).first()
     
     page = request.args.get(get_page_parameter(), type=int, default=1)
-    customers = Customer.query.filter_by(project_id=project.id).order_by(Customer.state).paginate(page, PER_PAGE, False).items
+    customers = Customer.query.filter_by(project_id=project.id).order_by(Customer.state, Customer.created_date).paginate(page, PER_PAGE, False).items
     pagination = Pagination(per_page=PER_PAGE, page=page, total=Customer.query.count(), record_name='customers', css_framework='bootstrap4')
 
     form = CreateCustomerForm()
@@ -47,6 +48,31 @@ def all(project_token: str):
         customers=customers,
         pagination=pagination,
         select_customers=Customer.query.filter_by(project_id=project.id).all()
+    )
+
+@customer.route('/customer/update/<int:id>', methods=['GET', 'POST'])
+def update(id):
+    customer = Customer.query.get(id)
+    
+    form = UpdateCustomerForm(
+        state=customer.state,
+        description=customer.description
+    )
+    form.set_customer_id(id)
+    if form.validate_on_submit():
+        customer.state=form.state.data
+        customer.instagram_login=form.instagram_login.data
+        customer.description=form.description.data
+        db.session.commit()
+        
+        flash("Customer updated successfully!")
+        return redirect(url_for('customer.all', project_token=customer.project.token))        
+
+    return render_template('customer_update.html', 
+        _menu='customers',
+        form=form,
+        project=customer.project,
+        customer=customer
     )
 
 @customer.route('/customer/destroy/<id>', methods=['GET', 'POST'])

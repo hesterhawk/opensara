@@ -4,6 +4,7 @@ from datetime import datetime
 from sqlalchemy import and_
 
 from .forms.create import CreateNoteForm
+from .forms.update import UpdateNoteForm
 from .forms.search import SearchNotesForm
 
 note = Blueprint('note', __name__, template_folder="views")
@@ -34,9 +35,29 @@ def all(project_token: str):
     notes = Note.query.filter(and_(*filter_params)).order_by(Note.state).paginate(page, PER_PAGE, False).items
     pagination = Pagination(per_page=PER_PAGE, page=page, total=Note.query.filter(and_(*filter_params)).count(), record_name='notes', css_framework='bootstrap4')
 
-    form_customer_id = request.args['c'] if 'c' in request.args else None
+    form = SearchNotesForm(request.args)
+    form.c.choices = [('', 'customer..')] + select_customers
 
-    form = CreateNoteForm(customer_id=form_customer_id)
+    return render_template(
+        'notes.html',
+        _menu='notes',
+        notes=notes,
+        customers=customers,
+        project=project,
+        pagination=pagination,
+        form=form
+    )
+
+@note.route('/note/create/<string:project_token>', methods=['GET', 'POST'])
+def create(project_token: str):
+    
+    project = Project.query.filter_by(token=project_token).first()
+    customers = project.customers.all()
+    select_customers = [("{}".format(c.id), c.instagram_login) for c in customers]
+
+    form = CreateNoteForm(
+        customer_id=request.args['c'] if 'c' in request.args else None
+    )
     form.customer_id.choices = select_customers
 
     if form.validate_on_submit():
@@ -54,18 +75,38 @@ def all(project_token: str):
         flash("Note created successfully!")
         return redirect(url_for('note.all', project_token=project.token))
 
-    search_form = SearchNotesForm(request.args)
-    search_form.c.choices = [('', 'customer..')] + select_customers
-
     return render_template(
-        'notes.html',
+        'note_create.html',
         _menu='notes',
         form=form,
-        notes=notes,
-        customers=customers,
         project=project,
-        pagination=pagination,
-        search_form=search_form
+        customers=customers
+    )
+
+@note.route('/note/update/<string:project_token>/<int:id>', methods=['GET', 'POST'])
+def update(project_token,id):
+    note = Note.query.get(id)
+    project = Project.query.filter_by(token=project_token).first()
+
+    form = UpdateNoteForm(
+        state=note.state,
+        message=note.message,
+        instagram_post_url=note.instagram_post_url
+    )
+    if form.validate_on_submit():
+        note.state=form.state.data,
+        note.message=form.message.data,
+        note.instagram_post_url=form.instagram_post_url.data
+        db.session.commit()
+        
+        flash("Note updated successfully!")
+        return redirect(url_for('note.all', project_token=project_token))        
+
+    return render_template('note_update.html', 
+        _menu='notes',
+        form=form,
+        note=note,
+        project=project
     )
 
 @note.route('/note/destroy/<id>', methods=['GET', 'POST'])

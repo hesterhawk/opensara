@@ -1,0 +1,41 @@
+{% extends "dashboard/index.html" %}
+
+{% block content %}
+
+    <div class="row row-cards row-deck align-items-center">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Update note</h3>
+          </div>
+          <div class="card-body">
+            <form action="{{ url_for('note.update', project_token=project.token, id=note.id) }}" method="post">
+                {{ form.hidden_tag() }}                
+                <div>
+                    {{ form.state(default=form.state.data if form.state.data else note.state, class='form-control is-invalid' if form.state.errors else 'form-control', placeholder='State..') }}
+                    {% for error in form.state.errors %}<div class="invalid-feedback">{{ error }}</div> {% endfor %}
+                </div>
+                <br>
+                <div> 
+                    {{ form.instagram_post_url(value=form.instagram_post_url.data if form.instagram_post_url.data else note.instagram_post_url, class='form-control is-invalid' if form.instagram_post_url.errors else 'form-control', placeholder='Instagram post url..') }}
+                    {% for error in form.instagram_post_url.errors %}<div class="invalid-feedback">{{ error }}</div> {% endfor %}                      
+                </div>
+                <br>
+                <div>
+                    {{ form.message(value=form.message.data if form.message.data else note.message, class='form-control is-invalid' if form.message.errors else 'form-control', placeholder='Message..') }}
+                    {% for error in form.message.errors %}<div class="invalid-feedback">{{ error }}</div> {% endfor %}
+                </div>
+                <br>                
+                <div>
+                    <a href="{{ url_for('note.all', project_token=project.token) }}" class="btn btn-secondary">&larr; back</a>
+                    <button class="btn btn-primary pull-right">Update note</button>
+                </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+
+{% endblock %}

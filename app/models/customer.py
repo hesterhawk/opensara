@@ -8,6 +8,7 @@ class Customer(db.Model):
     instagram_login = db.Column(db.String(128))    
     fullname = db.Column(db.String(128))
     created_date = db.Column(db.DateTime, default=datetime.utcnow)
+    description = db.Column(db.String(8000))
 
     project = db.relationship("Project", back_populates="customers")
     notes = db.relationship("Note", backref="post", cascade="all, delete-orphan" , lazy='dynamic')
