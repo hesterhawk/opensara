@@ -7,6 +7,7 @@ class Note(db.Model):
     state = db.Column(db.Integer)
     message = db.Column(db.String(4000), nullable=False)
     instagram_post_url = db.Column(db.String(255), nullable=True)
+    exec_date = db.Column(db.DateTime, nullable=True)
     created_date = db.Column(db.DateTime, default=datetime.utcnow)
 
     customer = db.relationship("Customer", back_populates="notes")

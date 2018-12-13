@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, SubmitField, SelectField
-from wtforms.validators import ValidationError, DataRequired, Length
+from wtforms import StringField, DateField, TextAreaField, SubmitField, SelectField
+from wtforms.validators import ValidationError, DataRequired, Length, Optional
 
 from app.config.dashboard import Notes
 
@@ -15,6 +15,7 @@ class UpdateNoteForm(FlaskForm):
         choices = Notes.state,
         validators=[DataRequired()]
     )
+    exec_date = DateField('Execution date', format='%Y-%m-%d', validators=[Optional()])
     instagram_post_url = StringField('Instagram post url', validators=[Length(max=255)])        
     message = TextAreaField('message', validators=[Length(max=8000)])
     submit = SubmitField('Create new Note')

@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField, SubmitField, SelectField
+from wtforms import StringField, DateField, IntegerField, SubmitField, SelectField
 from wtforms.widgets import TextArea
-from wtforms.validators import ValidationError, DataRequired, Length
+from wtforms.validators import ValidationError, DataRequired, Length, Optional
 
 from app.config.dashboard import Notes
 
@@ -10,6 +10,7 @@ from .url_validator import UrlValidator
 class CreateNoteForm(FlaskForm):
     
     customer_id = SelectField('Customer', validators=[DataRequired()])
+    exec_date = DateField('Execution date', format='%Y-%m-%d', validators=[Optional()])
     instagram_post_url = StringField('Instagram post url', validators=[Length(max=255)])    
     message = StringField('Message', widget=TextArea(), validators=[DataRequired(), Length(max=4000)])    
     state = SelectField('State',

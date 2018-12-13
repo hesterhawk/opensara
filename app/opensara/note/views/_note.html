@@ -29,8 +29,14 @@
       </div>
     </td>       
     <td>
-      <div class="small text-muted">Created</div>
-      <div>{{ note.created_date.strftime('%Y-%m-%d %I:%M:%S') }}</div>
+      <div class="small text-muted">Execution date</div>
+      <div>
+        {% if note.exec_date %}
+          {{ note.exec_date.strftime('%Y-%m-%d') }}
+        {% else %}
+          -
+        {% endif %}
+      </div>
     </td>
     <td class="text-center">
       <a title="update note" href="{{ url_for('note.update', id=note.id, project_token=project.token) }}" class="icon"><i class="fe fe-edit-2"></i></a>&nbsp;&nbsp;

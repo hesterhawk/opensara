@@ -2,11 +2,15 @@
 
 {% block content %}
 
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='datedropper3/datedropper.css', v=1) }}">
+    <script src="{{ url_for('static', filename='datedropper3/datedropper.js') }}"></script>
+
     <div class="row row-cards row-deck align-items-center">
       <div class="col-md-2"></div>
       <div class="col-md-8">
         <div class="card">
-          <div class="card-header">
+          <div class="card-header">                
             <h3 class="card-title">Create note</h3>
           </div>
           <div class="card-body">
@@ -17,24 +21,29 @@
                     {% for error in form.customer_id.errors %}<div class="invalid-feedback">{{ error }}</div> {% endfor %}
                 </div>
                 <br>
+                <div> 
+                    {{ form.exec_date(tabindex='2', id='exec-date', class='form-control is-invalid' if form.exec_date.errors else 'form-control', placeholder='Execution date..', data_format='Y-m-d', data_init_set='false') }}
+                    {% for error in form.exec_date.errors %}<div class="invalid-feedback">{{ error }}</div> {% endfor %}                      
+                </div> 
+                <br>
                 <div>
-                    {{ form.message(size=32, tabindex='2', class='form-control is-invalid' if form.message.errors else 'form-control', placeholder='message..') }}
+                    {{ form.message(size=32, tabindex='3', class='form-control is-invalid' if form.message.errors else 'form-control', placeholder='message..') }}
                     {% for error in form.message.errors %}<div class="invalid-feedback">{{ error }}</div> {% endfor %}                      
                 </div>
                 <br>
                 <div> 
-                    {{ form.instagram_post_url(size=32, tabindex='3', class='form-control is-invalid' if form.instagram_post_url.errors else 'form-control', placeholder='Instagram post url..') }}
+                    {{ form.instagram_post_url(size=32, tabindex='4', class='form-control is-invalid' if form.instagram_post_url.errors else 'form-control', placeholder='Instagram post url..') }}
                     {% for error in form.instagram_post_url.errors %}<div class="invalid-feedback">{{ error }}</div> {% endfor %}                      
                 </div>              
                 <br>
                 <div>                 
-                    {{ form.state(tabindex='4', class='form-control is-invalid' if form.state.errors else 'form-control', placeholder='State..') }}
+                    {{ form.state(tabindex='5', class='form-control is-invalid' if form.state.errors else 'form-control', placeholder='State..') }}
                     {% for error in form.state.errors %}<div class="invalid-feedback">{{ error }}</div> {% endfor %}
                 </div>  
                 <br>              
                 <div>
                     <a href="{{ url_for('note.all', project_token=project.token) }}" class="btn btn-secondary">&larr; back</a>
-                    <button tabindex="5" class="btn btn-primary pull-right">Create note</button>
+                    <button tabindex="6" class="btn btn-primary pull-right">Create note</button>
                 </div>
             </form>
           </div>
@@ -45,7 +54,11 @@
 
     <script>
         require(['jquery', 'selectize'], function ($, selectize) {
+            
           $(document).ready(function () {                
+
+            $('#exec-date').dateDropper();
+
             $('#select-beast').selectize();
           });
         });

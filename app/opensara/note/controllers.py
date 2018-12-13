@@ -65,6 +65,7 @@ def create(project_token: str):
             customer_id = form.customer_id.data,
             state=form.state.data, 
             message=form.message.data, 
+            exec_date=form.exec_date.data if form.exec_date.data != '' else None,
             instagram_post_url=form.instagram_post_url.data,
             created_date=datetime.now()
         )
@@ -96,6 +97,7 @@ def update(project_token,id):
     if form.validate_on_submit():
         note.state=form.state.data,
         note.message=form.message.data,
+        note.exec_date=form.exec_date.data if form.exec_date.data != '' else None,
         note.instagram_post_url=form.instagram_post_url.data
         db.session.commit()
         
